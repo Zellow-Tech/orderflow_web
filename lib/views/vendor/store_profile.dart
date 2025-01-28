@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ofg_web/constants/urls/uris.dart';
 import 'package:ofg_web/services/auth_services.dart';
 import 'package:ofg_web/services/profile_services.dart';
@@ -12,7 +11,6 @@ import 'package:ofg_web/views/home.dart';
 import 'package:ofg_web/views/vendor/store_options/edit_profile.dart';
 import 'package:ofg_web/views/vendor/store_options/qr_page.dart';
 import 'package:share_plus/share_plus.dart';
-import '../../env/environment_variables.dart';
 
 class StoreProfile extends StatefulWidget {
   final Map<String, dynamic>? vendorData;
@@ -31,7 +29,6 @@ class _StoreProfileState extends State<StoreProfile> {
   Map<dynamic, dynamic> profileData = {};
   bool _isLoading = false;
 
-  BannerAd? bannerAd;
   bool isAdLoaded = false;
 
   @override
@@ -42,7 +39,7 @@ class _StoreProfileState extends State<StoreProfile> {
         : storeProfileDataSetUp(context: context, force: true);
 
     // loading the banner ad
-    loadAd();
+
     super.initState();
   }
 
@@ -193,16 +190,6 @@ class _StoreProfileState extends State<StoreProfile> {
                       ),
                     ),
 
-                    SizedBox(height: height * 0.02),
-                    isAdLoaded
-                        ? SizedBox(
-                            height: bannerAd!.size.height.toDouble(),
-                            width: bannerAd!.size.width.toDouble(),
-                            child: AdWidget(
-                              ad: bannerAd!,
-                            ),
-                          )
-                        : const SizedBox(),
                     //  create the listiles list veiw that is going to hold other funcs, incl settings,
 
                     // settings for ios devices
@@ -410,23 +397,6 @@ class _StoreProfileState extends State<StoreProfile> {
               ),
       ),
     );
-  }
-
-  // Loads a banner ad.
-  void loadAd() {
-    bannerAd = BannerAd(
-      adUnitId: EnvironmentVariables.bannerAdUnitId,
-      request: const AdRequest(),
-      size: AdSize.banner,
-      listener: BannerAdListener(
-        // Called when an ad is successfully received.
-        onAdLoaded: (ad) {
-          setState(() {
-            isAdLoaded = true;
-          });
-        },
-      ),
-    )..load();
   }
 
   // store profile data setup

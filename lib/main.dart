@@ -2,15 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ofg_web/utils/responsive.dart';
+import 'package:ofg_web/views/common/login_new.dart';
+import 'package:ofg_web/views/common/registration_new.dart';
 // import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
+  // await Firebase.initializeApp(
     // options: DefaultFirebaseOptions.currentPlatform,
     
-);
+// );
 
 // Your web app's Firebase configuration
 // const firebaseConfig = {
@@ -22,7 +23,6 @@ void main() async {
 //   appId: "1:572995758259:web:43304500273b29d0e628c6"
 // };
 
-  MobileAds.instance.initialize();
   await SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
   );
@@ -30,19 +30,20 @@ void main() async {
     MaterialApp(
       title: 'Orderflow General',
       debugShowCheckedModeBanner: false,
-      home: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.active) {
-            // connoectec to stream
-            if (snapshot.hasData) {
-              return ResponsiveUI(login: true);
-            }
-          }
+      home: RegistrationScreen(),
+      //  StreamBuilder(
+      //   stream: FirebaseAuth.instance.authStateChanges(),
+      //   builder: (context, snapshot) {
+      //     if (snapshot.connectionState == ConnectionState.active) {
+      //       // connoectec to stream
+      //       if (snapshot.hasData) {
+      //         return ResponsiveUI(login: true);
+      //       }
+      //     }
 
-          return ResponsiveUI();
-        },
-      ),
+      //     return ResponsiveUI();
+      //   },
+      // ),
     ),
   );
 }

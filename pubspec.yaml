@@ -48,7 +48,6 @@ dependencies:
   currency_picker: ^2.0.21
   url_launcher: ^6.1.12
   dart_jsonwebtoken: ^2.8.2
-  google_mobile_ads: ^5.2.0
 
 # state management dependencies
   flutter_riverpod: ^2.3.6

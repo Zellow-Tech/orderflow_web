@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+
 import 'package:ofg_web/services/checkout_service.dart';
 import 'package:ofg_web/services/store_services.dart';
 import 'package:ofg_web/services/store_stats_service.dart';
@@ -12,8 +12,6 @@ import 'package:ofg_web/utils/constants.dart';
 import 'package:ofg_web/utils/custom_widgets.dart';
 import 'package:ofg_web/utils/tools.dart';
 import 'package:ofg_web/views/vendor/stats_page.dart';
-
-import '../../env/environment_variables.dart';
 
 class VendorDashboard extends StatefulWidget {
   VendorDashboard({super.key, this.checkoutsList, this.storeListings});
@@ -32,7 +30,6 @@ class _VendorDashboardState extends State<VendorDashboard> {
   final Tools _tools = Tools();
   final StatsService _statsService = StatsService();
 
-  BannerAd? bannerAd;
   bool isAdLoaded = false;
   bool isLoading = false;
 
@@ -43,7 +40,6 @@ class _VendorDashboardState extends State<VendorDashboard> {
 
   @override
   void initState() {
-    loadAd();
     setState(() {
       checkoutList = widget.checkoutsList ?? [];
       storeListings = widget.storeListings ?? [];
@@ -103,17 +99,6 @@ class _VendorDashboardState extends State<VendorDashboard> {
               onRefresh: () => refreshCheckoutView(),
               child: ListView(
                 children: [
-                  // the main banner ad displayed over the list view below the appbar
-                  isAdLoaded
-                      ? SizedBox(
-                          height: bannerAd!.size.height.toDouble(),
-                          width: bannerAd!.size.width.toDouble(),
-                          child: AdWidget(
-                            ad: bannerAd!,
-                          ),
-                        )
-                      : const SizedBox(),
-
                   // the main list view
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -387,23 +372,6 @@ class _VendorDashboardState extends State<VendorDashboard> {
               ),
             ),
     );
-  }
-
-  /// Loads a banner ad.
-  void loadAd() {
-    bannerAd = BannerAd(
-      adUnitId: EnvironmentVariables.bannerAdUnitId,
-      request: const AdRequest(),
-      size: AdSize.banner,
-      listener: BannerAdListener(
-        // Called when an ad is successfully received.
-        onAdLoaded: (ad) {
-          setState(() {
-            isAdLoaded = true;
-          });
-        },
-      ),
-    )..load();
   }
 
   // refresh the sstore listings
