@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ofg_web/services/checkout_service.dart';
-import 'package:ofg_web/services/pdf_services.dart';
+
 import 'package:ofg_web/utils/constants.dart';
 import 'package:ofg_web/utils/custom_widgets.dart';
 
@@ -27,7 +27,7 @@ class _BillCheckoutPageState extends State<BillCheckoutPage> {
   final CheckoutService _checkoutService = CheckoutService();
   final CustomWidgets _customWidgets = CustomWidgets();
   final ColorPalette _palette = ColorPalette();
-  final PdfServices _pdfServices = PdfServices();
+  // final PdfServices _pdfServices = PdfServices();
 
 // cash, card, debt, Upi, coupons, paypal, other,
   List checkedOptions = [false, false, false, false, false, false, false];
@@ -324,9 +324,9 @@ class _BillCheckoutPageState extends State<BillCheckoutPage> {
 // render the pdf for sharing
   renderPdfSharing(Map dataMap) async {
     // generate pdf for checkout
-    var file = await _pdfServices.renderCheckoutPDF(dataMap);
+    // var file = await _pdfServices.renderCheckoutPDF(dataMap);
     // for the share button.
-    _pdfServices.openFile(file, context);
+    // _pdfServices.openFile(file, context);
   }
 
 // invoice deadline dialogue

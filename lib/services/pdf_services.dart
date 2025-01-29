@@ -2,8 +2,7 @@
 
 import 'dart:developer';
 import 'dart:io';
-import 'package:flutter/widgets.dart';
-import 'package:open_file/open_file.dart';
+
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -204,12 +203,12 @@ class PdfServices {
     return file;
   }
 
-  // open the file from device after writing
-  openFile(String file, BuildContext context) async {
-    try {
-      await OpenFile.open(file);
-    } catch (error, stackTrace) {
-      log("Error While Opening File ", error: error, stackTrace: stackTrace);
-    }
-  }
+  // // open the file from device after writing
+  // openFile(String file, BuildContext context) async {
+  //   try {
+  //     await OpenFile.open(file);
+  //   } catch (error, stackTrace) {
+  //     log("Error While Opening File ", error: error, stackTrace: stackTrace);
+  //   }
+  // }
 }
