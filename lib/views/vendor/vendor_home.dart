@@ -8,7 +8,7 @@ import 'package:ofg_web/views/vendor/store_listings.dart';
 import 'package:ofg_web/views/vendor/store_profile.dart';
 import 'package:ofg_web/views/vendor/vendor_dashboard.dart';
 import '../../services/profile_services.dart';
-import '../../services/version_services.dart';
+// import '../../services/version_services.dart';
 import 'billing_pages/new_bill_page.dart';
 
 class VendorHome extends StatefulWidget {
@@ -156,7 +156,7 @@ class _VendorHomeState extends State<VendorHome> {
   // Calling for all the data so as to reduce calls to firebase.
   initDataSetUp() async {
     // app update check
-    AppVersionService().appUpdateCheck(context: context);
+    // AppVersionService().appUpdateCheck(context: context);
 
     setState(() {
       isLoading = true;

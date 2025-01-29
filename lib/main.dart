@@ -1,31 +1,19 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:ofg_web/utils/responsive.dart';
-import 'package:ofg_web/views/common/login_new.dart';
+
+import 'package:ofg_web/firebase_options.dart';
+
 import 'package:ofg_web/views/common/registration_new.dart';
+
 // import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-    // options: DefaultFirebaseOptions.currentPlatform,
-    
-// );
 
-// Your web app's Firebase configuration
-// const firebaseConfig = {
-//   apiKey: "AIzaSyCFt1UgnyET1sUemsXPyUjST7MquBZCJzU",
-//   authDomain: "orderflow-general.firebaseapp.com",
-//   projectId: "orderflow-general",
-//   storageBucket: "orderflow-general.appspot.com",
-//   messagingSenderId: "572995758259",
-//   appId: "1:572995758259:web:43304500273b29d0e628c6"
-// };
+  // takes the data in from firebase_options.dart and moves accordingly
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // .then((FirebaseApp val) => Get.put(),);
 
-  await SystemChrome.setPreferredOrientations(
-    [DeviceOrientation.portraitUp],
-  );
   runApp(
     MaterialApp(
       title: 'Orderflow General',

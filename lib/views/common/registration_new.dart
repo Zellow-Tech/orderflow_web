@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ofg_web/models/Invoice_PDF/invoice_pdf_model.dart';
+import 'package:ofg_web/services/pdf_generation_services.dart';
 import 'package:ofg_web/utils/custom_widgets.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -19,7 +21,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
@@ -103,8 +104,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
                         hintText: 'Enter your password',
-                        hintStyle:
-                            TextStyle(fontSize: 14, color: Colors.grey.shade400),
+                        hintStyle: TextStyle(
+                            fontSize: 14, color: Colors.grey.shade400),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
                           borderSide: const BorderSide(color: Colors.teal),
@@ -147,11 +148,32 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                   ),
                 ),
+                ElevatedButton(
+                  onPressed: () => generateAndDownloadInvoice(context),
+                  child: Text("Generate Invoice"),
+                )
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  void generateAndDownloadInvoice(BuildContext context) {
+    final invoiceDetails = IBDetails(
+      invoiceNumber: "INV-123456",
+      customerName: "John Doe",
+      customerEmail: "john.doe@example.com",
+      date: DateTime.now(),
+      items: [
+        // InvoiceItem(description: "Product 1", quantity: 2, unitPrice: 50.0),
+        // InvoiceItem(description: "Product 2", quantity: 1, unitPrice: 100.0),
+      ],
+      totalAmount: 200.0,
+    );
+
+    final pdfGenerator = PdfInvoiceGenerator();
+    pdfGenerator.printOrDownloadInvoice(context, invoiceDetails);
   }
 }
