@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:ofg_web/models/Invoice_PDF/invoice_pdf_model.dart';
-import 'package:ofg_web/services/pdf_generation_services.dart';
+import 'package:ofg_web/utils/constants.dart';
 import 'package:ofg_web/utils/custom_widgets.dart';
 
 class RegistrationScreen extends StatefulWidget {
-  const RegistrationScreen({Key? key}) : super(key: key);
+  const RegistrationScreen({super.key});
 
   @override
   State<RegistrationScreen> createState() => _RegistrationScreenState();
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  final ColorPalette _palette = ColorPalette(); // Initialize color palette
+
   final TextEditingController _ownerNameController = TextEditingController();
   final TextEditingController _storeNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -32,24 +33,49 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               borderRadius: BorderRadius.circular(10.0),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
+                  color: _palette.inactiveIconGrey.withOpacity(0.2),
                   blurRadius: 10.0,
                   spreadRadius: 1.0,
                 ),
               ],
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text(
-                  'Register',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.teal,
-                  ),
+                // OrderFlow General Branding (Logo + Name)
+                Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 40,
+                      backgroundColor: _palette.primaryBlue,
+                      child: Icon(
+                        Icons.shopping_cart,
+                        size: 40,
+                        color: Colors.white,
+                      ), // Placeholder for logo
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      'OrderFlow General',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: _palette.primaryBlue,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      'Seamless order management at your fingertips',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: _palette.secondaryTextColor,
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 20),
+
+                // Registration Form
                 TopLabelTextField().topLabelTextField(
                   controller: _ownerNameController,
                   label: 'Owner\'s Name',
@@ -57,7 +83,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   keyboardType: TextInputType.text,
                   obscureText: false,
                   requiredField: true,
-                  borderColor: Colors.teal,
+                  borderColor: _palette.primaryBlue,
                   borderRadius: 8.0,
                 ),
                 const SizedBox(height: 16),
@@ -68,7 +94,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   keyboardType: TextInputType.text,
                   obscureText: false,
                   requiredField: true,
-                  borderColor: Colors.teal,
+                  borderColor: _palette.primaryBlue,
                   borderRadius: 8.0,
                 ),
                 const SizedBox(height: 16),
@@ -79,20 +105,25 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   keyboardType: TextInputType.emailAddress,
                   obscureText: false,
                   requiredField: true,
-                  borderColor: Colors.teal,
+                  borderColor: _palette.primaryBlue,
                   borderRadius: 8.0,
                 ),
                 const SizedBox(height: 16),
+
+                // Password Field
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      children: const [
+                      children: [
                         Text(
                           'Password',
-                          style: TextStyle(fontSize: 14, color: Colors.teal),
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: _palette.primaryBlue,
+                          ),
                         ),
-                        Text(
+                        const Text(
                           '*',
                           style: TextStyle(fontSize: 14, color: Colors.red),
                         ),
@@ -105,18 +136,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       decoration: InputDecoration(
                         hintText: 'Enter your password',
                         hintStyle: TextStyle(
-                            fontSize: 14, color: Colors.grey.shade400),
+                          fontSize: 14,
+                          color: _palette.textGrey,
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
-                          borderSide: const BorderSide(color: Colors.teal),
+                          borderSide: BorderSide(color: _palette.primaryBlue),
                         ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.teal),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: _palette.primaryBlue),
                         ),
                         suffixIcon: IconButton(
-                          icon: Icon(_obscurePassword
-                              ? Icons.visibility_off
-                              : Icons.visibility),
+                          icon: Icon(
+                            _obscurePassword
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: _palette.inactiveIconGrey,
+                          ),
                           onPressed: () {
                             setState(() {
                               _obscurePassword = !_obscurePassword;
@@ -128,11 +164,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ],
                 ),
                 const SizedBox(height: 24),
+
+                // Register Button
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Handle registration logic
                       print('Registering...');
                     },
                     style: ElevatedButton.styleFrom(
@@ -140,40 +177,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                      backgroundColor: Colors.teal,
+                      backgroundColor: _palette.secondaryButtonGreen,
                     ),
-                    child: const Text(
+                    child: Text(
                       'Register',
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: _palette.primaryBlue,
+                      ),
                     ),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: () => generateAndDownloadInvoice(context),
-                  child: Text("Generate Invoice"),
-                )
               ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  void generateAndDownloadInvoice(BuildContext context) {
-    final invoiceDetails = IBDetails(
-      invoiceNumber: "INV-123456",
-      customerName: "John Doe",
-      customerEmail: "john.doe@example.com",
-      date: DateTime.now(),
-      items: [
-        // InvoiceItem(description: "Product 1", quantity: 2, unitPrice: 50.0),
-        // InvoiceItem(description: "Product 2", quantity: 1, unitPrice: 100.0),
-      ],
-      totalAmount: 200.0,
-    );
-
-    final pdfGenerator = PdfInvoiceGenerator();
-    pdfGenerator.printOrDownloadInvoice(context, invoiceDetails);
   }
 }
