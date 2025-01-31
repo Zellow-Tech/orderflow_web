@@ -1,4 +1,3 @@
-// the custom text field
 import 'package:flutter/material.dart';
 import 'package:ofg_web/constants/color_palette.dart';
 
@@ -7,24 +6,25 @@ OFGColorPalette _palette = OFGColorPalette();
 class TopLabelTextField {
   TopLabelTextField();
 
-  topLabelTextField(
-      {required controller,
-      required label,
-      required hintText,
-      required keyboardType,
-      required obscureText,
-      required requiredField,
-      borderColor,
-      maxLines,
-      maxLength,
-      borderRadius}) {
+  Widget topLabelTextField({
+    required TextEditingController controller,
+    required String label,
+    required String hintText,
+    required TextInputType keyboardType,
+    required bool obscureText,
+    required bool requiredField,
+    Color? borderColor,
+    int? maxLines,
+    int? maxLength,
+    double? borderRadius,
+    Widget? suffixIcon,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Row(
           children: [
-            // the label above top
+            // The label above the input field
             Text(
               label,
               style: TextStyle(
@@ -34,21 +34,19 @@ class TopLabelTextField {
             ),
             requiredField
                 ? const Text(
-                    '*',
+                    ' *',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.red,
                     ),
                   )
-                : const SizedBox(
-                    width: 0,
-                  ),
+                : const SizedBox.shrink(),
           ],
         ),
         const SizedBox(height: 6),
         TextField(
           maxLength: maxLength,
-          maxLines: maxLines != null ? maxLines! : 1,
+          maxLines: maxLines ?? 1,
           keyboardType: keyboardType,
           obscureText: obscureText,
           cursorColor: _palette.primaryBlue,
@@ -58,21 +56,24 @@ class TopLabelTextField {
           decoration: InputDecoration(
             focusedBorder: borderColor != null
                 ? OutlineInputBorder(
-                    borderSide: BorderSide(color: borderColor!))
+                    borderSide: BorderSide(color: borderColor),
+                  )
                 : null,
             hintText: hintText,
+            suffixIcon: suffixIcon,
             hintStyle: TextStyle(fontSize: 14, color: Colors.grey.shade400),
             enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade400)),
+              borderRadius: BorderRadius.circular(borderRadius ?? 12),
+              borderSide: BorderSide(color: Colors.grey.shade400),
+            ),
             disabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade400)),
-            border: borderRadius == null
-                ? OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(0),
-                    borderSide: BorderSide(color: _palette.primaryBlue))
-                : OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(borderRadius!),
-                    borderSide: BorderSide(color: _palette.primaryBlue)),
+              borderRadius: BorderRadius.circular(borderRadius ?? 12),
+              borderSide: BorderSide(color: Colors.grey.shade400),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(borderRadius ?? 12),
+              borderSide: BorderSide(color: _palette.primaryBlue),
+            ),
           ),
         ),
       ],

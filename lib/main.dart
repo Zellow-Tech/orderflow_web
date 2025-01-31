@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
-
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import 'package:ofg_web/firebase_options.dart';
-
-import 'package:ofg_web/views/auth/registration_new.dart';
+import 'package:ofg_web/routes/app/app_endpoints.dart';
+import 'package:ofg_web/routes/app/app_routes.dart';
+import 'package:ofg_web/views/auth/login_new.dart';
 
 // import 'firebase_options.dart';
 void main() async {
@@ -15,23 +15,20 @@ void main() async {
   // .then((FirebaseApp val) => Get.put(),);
 
   runApp(
-    MaterialApp(
-      title: 'Orderflow General',
+    GetMaterialApp(
+      title: 'OrderFlow General',
+      home: LoginScreen(),
       debugShowCheckedModeBanner: false,
-      home: RegistrationScreen(),
-      //  StreamBuilder(
-      //   stream: FirebaseAuth.instance.authStateChanges(),
-      //   builder: (context, snapshot) {
-      //     if (snapshot.connectionState == ConnectionState.active) {
-      //       // connoectec to stream
-      //       if (snapshot.hasData) {
-      //         return ResponsiveUI(login: true);
-      //       }
-      //     }
 
-      //     return ResponsiveUI();
-      //   },
-      // ),
+      // routes (just like above, but with more capabilities)
+      getPages: OFGPages.pages,
+      initialRoute: OFGEndpoints.login,
+
+      // unknown error
+      unknownRoute: GetPage(
+        name: '/404',
+        page: () => Scaffold(body: Center(child: Text('Page Not Found'))),
+      ),
     ),
   );
 }

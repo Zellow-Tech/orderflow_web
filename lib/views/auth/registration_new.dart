@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ofg_web/constants/texts.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -12,16 +13,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final TextEditingController _storeNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TopLabelTextField topLabelTextField = TopLabelTextField();
 
   bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Register'),
-        centerTitle: true,
-      ),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
@@ -42,92 +40,54 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Register',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.teal,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                TopLabelTextField().topLabelTextField(
+                // owner's name text field
+                topLabelTextField.topLabelTextField(
                   controller: _ownerNameController,
-                  label: 'Owner\'s Name',
-                  hintText: 'Enter the owner\'s name',
+                  label: OFGTexts.registerOwnerNameLabel,
                   keyboardType: TextInputType.text,
                   obscureText: false,
+                  borderRadius: 12.0,
+                  hintText: OFGTexts.registerOwnerNameHint,
                   requiredField: true,
-                  borderColor: Colors.teal,
-                  borderRadius: 8.0,
                 ),
                 const SizedBox(height: 16),
-                TopLabelTextField().topLabelTextField(
+
+                // shop name controller
+                topLabelTextField.topLabelTextField(
                   controller: _storeNameController,
-                  label: 'Store Name',
-                  hintText: 'Enter the store name',
+                  label: OFGTexts.registerStoreNameLabel,
                   keyboardType: TextInputType.text,
                   obscureText: false,
+                  borderRadius: 12.0,
+                  hintText: OFGTexts.registerStoreNameHint,
                   requiredField: true,
-                  borderColor: Colors.teal,
-                  borderRadius: 8.0,
                 ),
+
                 const SizedBox(height: 16),
-                TopLabelTextField().topLabelTextField(
+
+                // email text field
+                topLabelTextField.topLabelTextField(
                   controller: _emailController,
-                  label: 'Email',
-                  hintText: 'Enter your email',
+                  label: OFGTexts.registerEmailLabel,
                   keyboardType: TextInputType.emailAddress,
                   obscureText: false,
+                  borderRadius: 12.0,
+                  hintText: OFGTexts.registerEmailHint,
                   requiredField: true,
-                  borderColor: Colors.teal,
-                  borderRadius: 8.0,
                 ),
+
                 const SizedBox(height: 16),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: const [
-                        Text(
-                          'Password',
-                          style: TextStyle(fontSize: 14, color: Colors.teal),
-                        ),
-                        Text(
-                          '*',
-                          style: TextStyle(fontSize: 14, color: Colors.red),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 6),
-                    TextField(
-                      controller: _passwordController,
-                      obscureText: _obscurePassword,
-                      decoration: InputDecoration(
-                        hintText: 'Enter your password',
-                        hintStyle:
-                            TextStyle(fontSize: 14, color: Colors.grey.shade400),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                          borderSide: const BorderSide(color: Colors.teal),
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.teal),
-                        ),
-                        suffixIcon: IconButton(
-                          icon: Icon(_obscurePassword
-                              ? Icons.visibility_off
-                              : Icons.visibility),
-                          onPressed: () {
-                            setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
+
+                topLabelTextField.topLabelTextField(
+                  controller: _passwordController,
+                  label: OFGTexts.registerPasswordLabel,
+                  keyboardType: TextInputType.text,
+                  obscureText: false,
+                  borderRadius: 12.0,
+                  hintText: OFGTexts.registerStoreNameHint,
+                  requiredField: true,
                 ),
+
                 const SizedBox(height: 24),
                 SizedBox(
                   width: double.infinity,

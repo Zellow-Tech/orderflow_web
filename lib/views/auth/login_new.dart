@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -90,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         setState(() {
                           _obscurePassword = !_obscurePassword;
-                      });
+                        });
                       },
                     ),
                   ),
@@ -102,6 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       // Handle login logic here
+                      Get.toNamed('/register');
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
