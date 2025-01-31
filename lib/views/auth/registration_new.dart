@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ofg_web/constants/color_palette.dart';
 import 'package:ofg_web/constants/texts.dart';
+import 'package:ofg_web/widgets/top_label_text_field.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -9,16 +11,28 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  // Controllers for form fields
   final TextEditingController _ownerNameController = TextEditingController();
   final TextEditingController _storeNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  // Widget for custom text fields
   final TopLabelTextField topLabelTextField = TopLabelTextField();
 
+  // Color palette instance
+  final OFGColorPalette _palette = OFGColorPalette();
+
+  // Password visibility toggle
   bool _obscurePassword = true;
+
+  // Loading state for the submit button
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -40,139 +54,135 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // owner's name text field
+                // _paletteOwner's Name Field
                 topLabelTextField.topLabelTextField(
                   controller: _ownerNameController,
                   label: OFGTexts.registerOwnerNameLabel,
                   keyboardType: TextInputType.text,
                   obscureText: false,
-                  borderRadius: 12.0,
+                  borderRadius: 10.0,
                   hintText: OFGTexts.registerOwnerNameHint,
                   requiredField: true,
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: height * 0.02),
 
-                // shop name controller
+                // _paletteStore Name Field
                 topLabelTextField.topLabelTextField(
                   controller: _storeNameController,
                   label: OFGTexts.registerStoreNameLabel,
                   keyboardType: TextInputType.text,
                   obscureText: false,
-                  borderRadius: 12.0,
+                  borderRadius: 10.0,
                   hintText: OFGTexts.registerStoreNameHint,
                   requiredField: true,
                 ),
+                SizedBox(height: height * 0.02),
 
-                const SizedBox(height: 16),
-
-                // email text field
+                // _paletteEmail Field
                 topLabelTextField.topLabelTextField(
                   controller: _emailController,
                   label: OFGTexts.registerEmailLabel,
                   keyboardType: TextInputType.emailAddress,
                   obscureText: false,
-                  borderRadius: 12.0,
+                  borderRadius: 10.0,
                   hintText: OFGTexts.registerEmailHint,
                   requiredField: true,
                 ),
+                SizedBox(height: height * 0.02),
 
-                const SizedBox(height: 16),
-
+                // _palettePassword Field with Visibility Toggle
                 topLabelTextField.topLabelTextField(
                   controller: _passwordController,
                   label: OFGTexts.registerPasswordLabel,
                   keyboardType: TextInputType.text,
-                  obscureText: false,
-                  borderRadius: 12.0,
-                  hintText: OFGTexts.registerStoreNameHint,
+                  obscureText: _obscurePassword,
+                  borderRadius: 10.0,
+                  hintText: OFGTexts.registerPasswordHint,
                   requiredField: true,
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscurePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscurePassword = !_obscurePassword;
+                      });
+                    },
+                  ),
                 ),
 
-                const SizedBox(height: 24),
+                SizedBox(height: height * 0.02),
+
+                // _paletteRegister Button
                 SizedBox(
-                  width: double.infinity,
+                  width: MediaQuery.of(context).size.width,
+                  height: height * 0.065,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Handle registration logic
-                      print('Registering...');
-                    },
                     style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
+                      backgroundColor: _palette.primaryBlue,
+                      side: BorderSide(
+                        width: 1,
+                        color: _palette.inactiveIcon,
                       ),
-                      backgroundColor: Colors.teal,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      elevation: 0,
+                      padding: const EdgeInsets.all(12),
                     ),
-                    child: const Text(
-                      'Register',
-                      style: TextStyle(fontSize: 16),
-                    ),
+                    onPressed: () async {
+                      // TODO: Implement registration logic here
+                    },
+                    child: _isLoading
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                        : const Text(
+                            OFGTexts.registerButton,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 17, color: Colors.white),
+                          ),
                   ),
+                ),
+
+                SizedBox(height: height * 0.03),
+
+                // _paletteNavigate to Login Screen
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // "Already have an account?" text
+                    Text(
+                      OFGTexts.registerAlreadyHaveAccount,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: _palette.tertiaryText,
+                      ),
+                    ),
+
+                    // "Login here" clickable text
+                    InkWell(
+                      onTap: () {
+                        // TODO: Implement navigation to login page
+                      },
+                      child: Text(
+                        ' ${OFGTexts.registerLogin}',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: _palette.linkBlue,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
         ),
       ),
-    );
-  }
-}
-
-// Placeholder for the TopLabelTextField class
-class TopLabelTextField {
-  TopLabelTextField();
-
-  Widget topLabelTextField({
-    required TextEditingController controller,
-    required String label,
-    required String hintText,
-    required TextInputType keyboardType,
-    required bool obscureText,
-    required bool requiredField,
-    Color? borderColor,
-    int? maxLines,
-    int? maxLength,
-    double? borderRadius,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Text(
-              label,
-              style: TextStyle(fontSize: 14, color: borderColor ?? Colors.teal),
-            ),
-            requiredField
-                ? const Text(
-                    '*',
-                    style: TextStyle(fontSize: 14, color: Colors.red),
-                  )
-                : const SizedBox.shrink(),
-          ],
-        ),
-        const SizedBox(height: 6),
-        TextField(
-          maxLength: maxLength,
-          maxLines: maxLines ?? 1,
-          keyboardType: keyboardType,
-          obscureText: obscureText,
-          controller: controller,
-          decoration: InputDecoration(
-            hintText: hintText,
-            hintStyle: TextStyle(fontSize: 14, color: Colors.grey.shade400),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: borderColor ?? Colors.teal),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: borderColor ?? Colors.teal),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
