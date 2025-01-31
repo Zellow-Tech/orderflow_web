@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get.dart';
 import 'package:ofg_web/constants/color_palette.dart';
 import 'package:ofg_web/constants/texts.dart';
 import 'package:ofg_web/widgets/top_label_text_field.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  // Controllers for form fields
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  // Controller for email input field
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
 
   // Custom input field widget
   final TopLabelTextField topLabelTextField = TopLabelTextField();
@@ -23,8 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
   // Color palette instance
   final OFGColorPalette _palette = OFGColorPalette();
 
-  // Password visibility toggle
-  bool _obscurePassword = true;
+  // Loading state for the submit button
   bool _isLoading = false;
 
   @override
@@ -35,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Container(
-            width: 500, // Fixed width for web, matching registration page
+            width: 500, // Fixed width for web, matching login & register pages
             padding: const EdgeInsets.all(24.0),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -75,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        OFGTexts.appTagline,
+                        'Reset your password securely',
                         style: TextStyle(
                           fontSize: 14,
                           color: _palette.secondaryText,
@@ -84,65 +81,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: height * 0.02),
+                const SizedBox(height: 20),
 
                 // Email Input Field
                 topLabelTextField.topLabelTextField(
                   controller: _emailController,
-                  label: OFGTexts.loginEmailLabel,
+                  label: OFGTexts.forgotPasswordTitle,
                   keyboardType: TextInputType.emailAddress,
                   obscureText: false,
                   borderRadius: 10.0,
-                  hintText: OFGTexts.loginEmailHint,
+                  hintText: OFGTexts.forgotPasswordInstruction,
                   requiredField: true,
                 ),
-                SizedBox(height: height * 0.02),
+                const SizedBox(height: 24),
 
-                // Password Input Field with Toggle
-                topLabelTextField.topLabelTextField(
-                  controller: _passwordController,
-                  label: OFGTexts.loginPasswordLabel,
-                  keyboardType: TextInputType.text,
-                  obscureText: _obscurePassword,
-                  borderRadius: 10.0,
-                  hintText: OFGTexts.loginPasswordHint,
-                  requiredField: true,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _obscurePassword
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                      color: Colors.grey,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _obscurePassword = !_obscurePassword;
-                      });
-                    },
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.01,
-                ),
-
-                // The forgot password text heere
-                InkWell(
-                  onTap: () {
-                    Get.toNamed('/forgotPassword');
-                  },
-                  child: Text(
-                    OFGTexts.loginForgotPassword,
-                    style: TextStyle(
-                        color: _palette.linkBlue,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 15),
-                  ),
-                ),
-
-                // Login Button
-                SizedBox(height: height * 0.02),
-
-                // _paletteRegister Button
+                // Submit Button
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: height * 0.065,
@@ -156,46 +109,42 @@ class _LoginScreenState extends State<LoginScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
+                      elevation: 0,
                       padding: const EdgeInsets.all(12),
                     ),
                     onPressed: () async {
-                      // TODO: Implement registration logic here
-                      Get.toNamed('/register');
+                      // TODO: Implement forgot password logic
                     },
                     child: _isLoading
                         ? const CircularProgressIndicator(
                             color: Colors.white,
                           )
                         : const Text(
-                            OFGTexts.loginButton,
-                            overflow: TextOverflow.ellipsis,
+                            OFGTexts.sendResetLink,
                             style: TextStyle(fontSize: 17, color: Colors.white),
                           ),
                   ),
                 ),
 
-                SizedBox(height: height * 0.03),
+                const SizedBox(height: 24),
 
-                // _paletteNavigate to Login Screen
+                // Navigate to Login Screen
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // "New to OFg" text
                     Text(
-                      OFGTexts.loginNoAccount,
+                      OFGTexts.rememberPassword,
                       style: TextStyle(
                         fontSize: 15,
                         color: _palette.tertiaryText,
                       ),
                     ),
-
-                    // "Login here" clickable text
                     InkWell(
                       onTap: () {
-                        // TODO: Implement navigation to login page
+                        Get.toNamed('/login'); // Navigate to Login Page
                       },
                       child: Text(
-                        ' ${OFGTexts.loginSignUp}',
+                        OFGTexts.loginButton,
                         style: TextStyle(
                           fontSize: 15,
                           color: _palette.linkBlue,

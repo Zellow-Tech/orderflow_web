@@ -15,6 +15,10 @@ class OFGTexts {
   static const String loginNoAccount = "New to OrderFlow?";
   static const String loginSignUp = "Sign up here";
 
+  // FORGOT PASSWORD
+  static const String sendResetLink = 'Send Reset Link';
+  static const String rememberPassword ='Remember your password?';
+
   // REGISTRATION SCREEN
   static const String registerTitle = "Register";
   static const String registerSubtitle = "Create your account to get started.";

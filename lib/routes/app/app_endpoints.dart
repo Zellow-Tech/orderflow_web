@@ -3,7 +3,7 @@ class OFGEndpoints {
   static const register = '/register';
 
   static const forgotPassword = '/forgotPassword';
-  static const resetPassword = '/resetPassword';
+  static const emailVerifcation = '/emailVerification';
 
   static const dashboard = '/dashboard';
   static const account = '/account';

@@ -88,7 +88,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                 ),
                 SizedBox(height: height * 0.02),
-                
+
                 // _paletteOwner's Name Field
                 topLabelTextField.topLabelTextField(
                   controller: _ownerNameController,
@@ -147,6 +147,32 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       });
                     },
                   ),
+                ),
+
+                SizedBox(height: height * 0.02),
+
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'By signing up you are agreeing to our ',
+                      overflow: TextOverflow.visible,
+                      style:
+                          TextStyle(fontSize: 15, color: _palette.tertiaryText),
+                    ),
+                    InkWell(
+                      // go to the tnc readme on github
+                      onTap: () async {},
+
+                      child: Text(
+                        'Terms and Conditions',
+                        overflow: TextOverflow.visible,
+                        style:
+                            TextStyle(fontSize: 15, color: _palette.linkBlue),
+                      ),
+                    ),
+                  ],
                 ),
 
                 SizedBox(height: height * 0.02),
