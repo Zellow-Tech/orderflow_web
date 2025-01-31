@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ofg_web/utils/constants.dart';
-import 'package:ofg_web/utils/custom_widgets.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -10,8 +8,6 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  final ColorPalette _palette = ColorPalette(); // Initialize color palette
-
   final TextEditingController _ownerNameController = TextEditingController();
   final TextEditingController _storeNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -22,6 +18,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Register'),
+        centerTitle: true,
+      ),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
@@ -33,49 +33,24 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               borderRadius: BorderRadius.circular(10.0),
               boxShadow: [
                 BoxShadow(
-                  color: _palette.inactiveIconGrey.withOpacity(0.2),
+                  color: Colors.black12,
                   blurRadius: 10.0,
                   spreadRadius: 1.0,
                 ),
               ],
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // OrderFlow General Branding (Logo + Name)
-                Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundColor: _palette.primaryBlue,
-                      child: Icon(
-                        Icons.shopping_cart,
-                        size: 40,
-                        color: Colors.white,
-                      ), // Placeholder for logo
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      'OrderFlow General',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: _palette.primaryBlue,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      'Seamless order management at your fingertips',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: _palette.secondaryTextColor,
-                      ),
-                    ),
-                  ],
+                const Text(
+                  'Register',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal,
+                  ),
                 ),
                 const SizedBox(height: 20),
-
-                // Registration Form
                 TopLabelTextField().topLabelTextField(
                   controller: _ownerNameController,
                   label: 'Owner\'s Name',
@@ -83,7 +58,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   keyboardType: TextInputType.text,
                   obscureText: false,
                   requiredField: true,
-                  borderColor: _palette.primaryBlue,
+                  borderColor: Colors.teal,
                   borderRadius: 8.0,
                 ),
                 const SizedBox(height: 16),
@@ -94,7 +69,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   keyboardType: TextInputType.text,
                   obscureText: false,
                   requiredField: true,
-                  borderColor: _palette.primaryBlue,
+                  borderColor: Colors.teal,
                   borderRadius: 8.0,
                 ),
                 const SizedBox(height: 16),
@@ -105,25 +80,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   keyboardType: TextInputType.emailAddress,
                   obscureText: false,
                   requiredField: true,
-                  borderColor: _palette.primaryBlue,
+                  borderColor: Colors.teal,
                   borderRadius: 8.0,
                 ),
                 const SizedBox(height: 16),
-
-                // Password Field
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      children: [
+                      children: const [
                         Text(
                           'Password',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: _palette.primaryBlue,
-                          ),
+                          style: TextStyle(fontSize: 14, color: Colors.teal),
                         ),
-                        const Text(
+                        Text(
                           '*',
                           style: TextStyle(fontSize: 14, color: Colors.red),
                         ),
@@ -135,24 +105,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
                         hintText: 'Enter your password',
-                        hintStyle: TextStyle(
-                          fontSize: 14,
-                          color: _palette.textGrey,
-                        ),
+                        hintStyle:
+                            TextStyle(fontSize: 14, color: Colors.grey.shade400),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8.0),
-                          borderSide: BorderSide(color: _palette.primaryBlue),
+                          borderSide: const BorderSide(color: Colors.teal),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: _palette.primaryBlue),
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.teal),
                         ),
                         suffixIcon: IconButton(
-                          icon: Icon(
-                            _obscurePassword
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            color: _palette.inactiveIconGrey,
-                          ),
+                          icon: Icon(_obscurePassword
+                              ? Icons.visibility_off
+                              : Icons.visibility),
                           onPressed: () {
                             setState(() {
                               _obscurePassword = !_obscurePassword;
@@ -164,12 +129,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ],
                 ),
                 const SizedBox(height: 24),
-
-                // Register Button
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
+                      // Handle registration logic
                       print('Registering...');
                     },
                     style: ElevatedButton.styleFrom(
@@ -177,14 +141,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                      backgroundColor: _palette.secondaryButtonGreen,
+                      backgroundColor: Colors.teal,
                     ),
-                    child: Text(
+                    child: const Text(
                       'Register',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: _palette.primaryBlue,
-                      ),
+                      style: TextStyle(fontSize: 16),
                     ),
                   ),
                 ),
@@ -193,6 +154,65 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+// Placeholder for the TopLabelTextField class
+class TopLabelTextField {
+  TopLabelTextField();
+
+  Widget topLabelTextField({
+    required TextEditingController controller,
+    required String label,
+    required String hintText,
+    required TextInputType keyboardType,
+    required bool obscureText,
+    required bool requiredField,
+    Color? borderColor,
+    int? maxLines,
+    int? maxLength,
+    double? borderRadius,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              label,
+              style: TextStyle(fontSize: 14, color: borderColor ?? Colors.teal),
+            ),
+            requiredField
+                ? const Text(
+                    '*',
+                    style: TextStyle(fontSize: 14, color: Colors.red),
+                  )
+                : const SizedBox.shrink(),
+          ],
+        ),
+        const SizedBox(height: 6),
+        TextField(
+          maxLength: maxLength,
+          maxLines: maxLines ?? 1,
+          keyboardType: keyboardType,
+          obscureText: obscureText,
+          controller: controller,
+          decoration: InputDecoration(
+            hintText: hintText,
+            hintStyle: TextStyle(fontSize: 14, color: Colors.grey.shade400),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: borderColor ?? Colors.teal),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: borderColor ?? Colors.teal),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

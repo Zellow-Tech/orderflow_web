@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:ofg_web/firebase_options.dart';
 
-import 'package:ofg_web/views/common/registration_new.dart';
+import 'package:ofg_web/views/auth/registration_new.dart';
 
 // import 'firebase_options.dart';
 void main() async {
