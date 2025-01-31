@@ -16,7 +16,7 @@ class OFGPages {
         page: () => const ForgotPasswordScreen()),
     GetPage(
         name: OFGEndpoints.emailVerifcation,
-        page: () => const EmailVerificationScreen()),
+        page: () =>  EmailVerificationScreen()),
     // GetPage(name: OFGEndpoints.forgotPassword, page: () => const ForgotPasswordScreen()),
     // GetPage(name: OFGEndpoints.resetPassword, page: () => const ResetPasswordScreen()),
     // GetPage(name: OFGEndpoints.dashboard, page: () => const DashboardScreen()),
