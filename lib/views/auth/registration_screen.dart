@@ -54,6 +54,41 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Branding: OrderFlow Logo & Name
+                Center(
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 40,
+                        backgroundColor: _palette.primaryBlue,
+                        child: const Icon(
+                          Icons.shopping_cart,
+                          size: 40,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        OFGTexts.appName,
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: _palette.primaryBlue,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        OFGTexts.appTagline,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: _palette.secondaryText,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: height * 0.02),
+                
                 // _paletteOwner's Name Field
                 topLabelTextField.topLabelTextField(
                   controller: _ownerNameController,
