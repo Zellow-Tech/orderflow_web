@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:ofg_web/routes/app/app_endpoints.dart';
+import 'package:ofg_web/views/auth/email_verification_page.dart';
 import 'package:ofg_web/views/auth/forgot_password.dart';
 import 'package:ofg_web/views/auth/login_screen.dart';
 import 'package:ofg_web/views/auth/registration_screen.dart';
@@ -13,6 +14,9 @@ class OFGPages {
     GetPage(
         name: OFGEndpoints.forgotPassword,
         page: () => const ForgotPasswordScreen()),
+    GetPage(
+        name: OFGEndpoints.emailVerifcation,
+        page: () => const EmailVerificationScreen()),
     // GetPage(name: OFGEndpoints.forgotPassword, page: () => const ForgotPasswordScreen()),
     // GetPage(name: OFGEndpoints.resetPassword, page: () => const ResetPasswordScreen()),
     // GetPage(name: OFGEndpoints.dashboard, page: () => const DashboardScreen()),
