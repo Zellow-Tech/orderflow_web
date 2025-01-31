@@ -17,7 +17,7 @@ class TopLabelTextField {
     int? maxLines,
     int? maxLength,
     double? borderRadius,
-    Widget? suffixIcon,
+    Widget? suffixIcon, // ✅ Now correctly handled
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,29 +50,25 @@ class TopLabelTextField {
           keyboardType: keyboardType,
           obscureText: obscureText,
           cursorColor: _palette.primaryBlue,
-          autocorrect: true,
-          autofocus: false,
           controller: controller,
           decoration: InputDecoration(
-            focusedBorder: borderColor != null
-                ? OutlineInputBorder(
-                    borderSide: BorderSide(color: borderColor),
-                  )
-                : null,
             hintText: hintText,
-            suffixIcon: suffixIcon,
             hintStyle: TextStyle(fontSize: 14, color: Colors.grey.shade400),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(borderRadius ?? 12),
-              borderSide: BorderSide(color: Colors.grey.shade400),
+            suffixIcon: suffixIcon, // ✅ This now works properly
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(borderRadius ?? 8),
+              borderSide:
+                  BorderSide(color: borderColor ?? _palette.primaryBlue),
             ),
-            disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(borderRadius ?? 12),
-              borderSide: BorderSide(color: Colors.grey.shade400),
+            enabledBorder: OutlineInputBorder(
+
+              borderSide:
+                  BorderSide(color: borderColor ?? Colors.grey.shade400),
             ),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(borderRadius ?? 12),
-              borderSide: BorderSide(color: _palette.primaryBlue),
+              borderRadius: BorderRadius.circular(borderRadius ?? 8),
+              borderSide:
+                  BorderSide(color: borderColor ?? Colors.grey.shade400),
             ),
           ),
         ),
