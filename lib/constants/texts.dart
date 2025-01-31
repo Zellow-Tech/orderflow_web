@@ -12,7 +12,7 @@ class OFGTexts {
   static const String loginPasswordHint = "Enter your password";
   static const String loginButton = "Login";
   static const String loginForgotPassword = "Forgot Password?";
-  static const String loginNoAccount = "Don't have an account?";
+  static const String loginNoAccount = "New to OrderFlow?";
   static const String loginSignUp = "Sign up here";
 
   // REGISTRATION SCREEN
