@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ofg_web/constants/color_palette.dart';
 import 'package:ofg_web/constants/texts.dart';
+import 'package:ofg_web/models/vendor_model.dart';
 
 class EmailVerificationPage extends StatefulWidget {
   final String email;
@@ -25,16 +26,23 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
 
   @override
   void initState() {
+    // check if the email is verified
     _isEmailVerified = _auth.currentUser!.emailVerified;
+
+    // inital email verification sender
     sendEmailVerificationForUser();
-    if (_isEmailVerified == false) {
+
+    // loop over every 5 seconds to recheck for verification
+    if (!_isEmailVerified) {
       timer = Timer.periodic(
         const Duration(seconds: 5),
         (timer) {
           emailVerificationStatus(context);
-          setState(() {
-            counter++;
-          });
+          setState(
+            () {
+              counter++;
+            },
+          );
         },
       );
     }
@@ -44,8 +52,12 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
 
   @override
   void dispose() {
+    // dispose timer on email verification
     timer?.cancel();
+    // if not verified and timer is up, delete user account that was created
+    // this prevents the user from not being able to create an account when they want to, later.
     !_isEmailVerified ? deleteUserAccountCreated() : null;
+
     super.dispose();
   }
 
@@ -163,31 +175,30 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
         // register the vendor's basic info provided to firestore here.
         _registerVendorData();
         // close registering here and move onto the next route.
-
-        Tools().popRouteUntilRoot(context);
-        cWidgetsInstance.moveToPage(
-            page: VendorHome(
-              vendor: widget.vendor,
-            ),
-            context: context,
-            replacement: true);
+        // move to the main dashboard 
+            // 
+            // 
+            // 
       }
     } else if (counter >= 50) {
+      // delete the account created 
       deleteUserAccountCreated();
     }
   }
 
+
+  // function delete the account created
   deleteUserAccountCreated() async {
     try {
       _auth.currentUser!.delete();
-      Tools().popRouteUntilRoot(context);
-      cWidgetsInstance.moveToPage(
-          page: const Home(), context: context, replacement: true);
-      cWidgetsInstance.snackBarWidget(
-          content: 'Unable to verify email.', context: context);
+      // move to the main login screen with no context or pages in stack
+
+
+      // show the snackbar telling the user about being unable to verify email.
+      
     } catch (e) {
-      cWidgetsInstance.snackBarWidget(
-          content: Tools().errorTextHandling(e.toString()), context: context);
+      // error snackbar for telling the error info to the user
+
     }
   }
 
@@ -195,8 +206,8 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
     try {
       await FirebaseAuth.instance.currentUser!.sendEmailVerification();
     } catch (e) {
-      cWidgetsInstance.snackBarWidget(
-          content: Tools().errorTextHandling(e.toString()), context: context);
+      // error snackbar
+      
     }
   }
 
