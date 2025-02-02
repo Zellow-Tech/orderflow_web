@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ofg_web/constants/color_palette.dart';
 import 'package:ofg_web/constants/texts.dart';
 import 'package:ofg_web/models/vendor_model.dart';
+import 'package:ofg_web/services/profile_services.dart';
 
 class EmailVerificationPage extends StatefulWidget {
   final String email;
@@ -175,17 +176,16 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
         // register the vendor's basic info provided to firestore here.
         _registerVendorData();
         // close registering here and move onto the next route.
-        // move to the main dashboard 
-            // 
-            // 
-            // 
+        // move to the main dashboard
+        //
+        //
+        //
       }
     } else if (counter >= 50) {
-      // delete the account created 
+      // delete the account created
       deleteUserAccountCreated();
     }
   }
-
 
   // function delete the account created
   deleteUserAccountCreated() async {
@@ -193,12 +193,9 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
       _auth.currentUser!.delete();
       // move to the main login screen with no context or pages in stack
 
-
       // show the snackbar telling the user about being unable to verify email.
-      
     } catch (e) {
       // error snackbar for telling the error info to the user
-
     }
   }
 
@@ -207,13 +204,12 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
       await FirebaseAuth.instance.currentUser!.sendEmailVerification();
     } catch (e) {
       // error snackbar
-      
     }
   }
 
   _registerVendorData() async {
-    var res = await ProfileServices()
-        .setStoreProfile(context: context, vendor: widget.vendor);
+    var res = await OFGProfileServices()
+        .registerStoreProfile(context: context, vendor: widget.vendor.toMap());
     if (res == '1') {
       return true;
     } else {
