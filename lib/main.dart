@@ -18,7 +18,7 @@ void main() async {
   runApp(
     GetMaterialApp(
       title: 'OrderFlow General',
-      home: EmailVerificationScreen(),
+      home: LoginPage(),
       debugShowCheckedModeBanner: false,
 
       // routes (just like above, but with more capabilities)

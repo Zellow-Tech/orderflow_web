@@ -8,15 +8,15 @@ import 'package:ofg_web/views/auth/registration_screen.dart';
 
 class OFGPages {
   static final pages = [
-    GetPage(name: OFGEndpoints.login, page: () => const LoginScreen()),
+    GetPage(name: OFGEndpoints.login, page: () => const LoginPage()),
     GetPage(
-        name: OFGEndpoints.register, page: () => const RegistrationScreen()),
+        name: OFGEndpoints.register, page: () => const RegistrationPage()),
     GetPage(
         name: OFGEndpoints.forgotPassword,
-        page: () => const ForgotPasswordScreen()),
+        page: () => const ForgotPasswordPage()),
     GetPage(
         name: OFGEndpoints.emailVerifcation,
-        page: () =>  EmailVerificationScreen()),
+        page: () =>  EmailVerificationPage()),
     // GetPage(name: OFGEndpoints.forgotPassword, page: () => const ForgotPasswordScreen()),
     // GetPage(name: OFGEndpoints.resetPassword, page: () => const ResetPasswordScreen()),
     // GetPage(name: OFGEndpoints.dashboard, page: () => const DashboardScreen()),
