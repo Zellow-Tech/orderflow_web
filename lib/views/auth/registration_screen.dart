@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:ofg_web/constants/color_palette.dart';
 import 'package:ofg_web/constants/texts.dart';
+import 'package:ofg_web/models/vendor_model.dart';
+import 'package:ofg_web/routes/app/app_endpoints.dart';
+import 'package:ofg_web/routes/server/firebase_routes.dart';
+import 'package:ofg_web/services/auth_services.dart';
+import 'package:ofg_web/utils/text_formatting.dart';
+import 'package:ofg_web/widgets/snackbar.dart';
 import 'package:ofg_web/widgets/top_label_text_field.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -195,7 +203,28 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       padding: const EdgeInsets.all(12),
                     ),
                     onPressed: () async {
-                      // TODO: Implement registration logic here
+                      // activate the loading for UI to update button
+                      setState(() {
+                        _isLoading = true;
+                      });
+
+                      // validate the text field
+                      var res = _textFieldValidation();
+
+                      // check res and show the appropriate dialog
+                      if (res != '1') {
+                        // show the message
+                        OFGSnackBar().snackBarWithContent(
+                            content: res, context: context);
+
+                        // set the loading to false
+                        setState(() {
+                          _isLoading = false;
+                        });
+                      } else {
+                        // register data and move to the content page
+                        _signUpAfterValidation(context);
+                      }
                     },
                     child: _isLoading
                         ? const CircularProgressIndicator(
@@ -227,7 +256,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     // "Login here" clickable text
                     InkWell(
                       onTap: () {
-                        // TODO: Implement navigation to login page
+                        // navigation to login page
                       },
                       child: Text(
                         ' ${OFGTexts.registerLogin}',
@@ -245,5 +274,58 @@ class _RegistrationPageState extends State<RegistrationPage> {
         ),
       ),
     );
+  }
+
+  String _textFieldValidation() {
+// check if phone number is that of Indian origin, password is atleast 8 chars, and every other field is correct
+    if (_emailController.text.isEmpty ||
+        _passwordController.text.isEmpty ||
+        _ownerNameController.text.isEmpty ||
+        _storeNameController.text.isEmpty) {
+      return 'Please complete all the above fields';
+    } else if (_passwordController.text.length < 8) {
+      return 'Password should be 8 or more charecters long';
+    } else if (!OFGTextFormatting()
+        .isValidEmail(_emailController.text.trim().toString())) {
+      return 'Please enter a valid email';
+    } else {
+      return '1';
+    }
+  }
+
+  _signUpAfterValidation(BuildContext context) async {
+    // vendor user registration
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    // create a non-verified account
+    String result = await AuthServices().signVendorUp(
+        email: _emailController.text.trim(),
+        password: _passwordController.text);
+
+    // check for the result
+    if (result == '1') {
+      var fuid = OFGFirebaseRoutes().fUid;
+
+      // create the first basic vendor to passover to the email verif page
+      VendorModel vendor = VendorModel(
+          firebaseUid: fuid,
+          storeName: _storeNameController.text,
+          isBanned: false,
+          ownerName: _ownerNameController.text,
+          emailId: _emailController.text.trim(),
+          phoneNumber: '',
+          address: '',
+          bio: '',
+          profilePicture: '',
+          metadata: [],
+          upiIds: []);
+
+      // move to the email verification page with all
+      Get.offAllNamed(OFGEndpoints.emailVerifcation,
+          arguments: {'vendor': vendor});
+    }
   }
 }
