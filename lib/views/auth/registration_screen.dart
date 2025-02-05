@@ -327,5 +327,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
       Get.offAllNamed(OFGEndpoints.emailVerifcation,
           arguments: {'vendor': vendor});
     }
+    // lock out the loading to end it
+    setState(() {
+      _isLoading = false;
+    });
   }
 }
