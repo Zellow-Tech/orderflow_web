@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:ofg_web/constants/color_palette.dart';
 import 'package:ofg_web/constants/texts.dart';
 import 'package:ofg_web/models/vendor_model.dart';
+import 'package:ofg_web/routes/app/app_endpoints.dart';
 import 'package:ofg_web/services/profile_services.dart';
 
 class EmailVerificationPage extends StatefulWidget {
@@ -175,9 +178,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
         _registerVendorData();
         // close registering here and move onto the next route.
         // move to the main dashboard
-        //
-        //
-        //
+        Get.offAllNamed(OFGEndpoints.dashboard);
       }
     } else if (counter >= 50) {
       // delete the account created
