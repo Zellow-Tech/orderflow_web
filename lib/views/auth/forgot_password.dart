@@ -160,7 +160,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     ),
                     InkWell(
                       onTap: () {
-                        Get.toNamed('/login'); // Navigate to Login Page
+                        Get.offAllNamed(
+                            OFGEndpoints.login); // Navigate to Login Page
                       },
                       child: Text(
                         OFGTexts.loginButton,
@@ -202,5 +203,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     // auth service for login
     await PassWordResetService()
         .sendResetEmail(_emailController.text.trim(), context);
+    setState(() {
+      _isLoading = true;
+    });
   }
 }
