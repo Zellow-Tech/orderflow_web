@@ -48,11 +48,13 @@ class AuthServices {
       return '1';
     } catch (e) {
       // push the snackbar
-      _snackBar.snackBarWithContent(
-          content: _formatting.errorTextHandling(
-            e.toString(),
-          ),
-          context: context);
+      if (context.mounted) {
+        _snackBar.snackBarWithContent(
+            content: _formatting.errorTextHandling(
+              e.toString(),
+            ),
+            context: context);
+      }
       // Return error message
       return _formatting.errorTextHandling(
         e.toString(),
@@ -67,11 +69,13 @@ class AuthServices {
       return '1'; // Success
     } catch (e) {
       // push the snackbar
-      _snackBar.snackBarWithContent(
-          content: _formatting.errorTextHandling(
-            e.toString(),
-          ),
-          context: context);
+      if (context.mounted) {
+        _snackBar.snackBarWithContent(
+            content: _formatting.errorTextHandling(
+              e.toString(),
+            ),
+            context: context);
+      }
       // Return error message
       return _formatting.errorTextHandling(
         e.toString(),
