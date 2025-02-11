@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ofg_web/constants/color_palette.dart';
 import 'package:ofg_web/constants/texts.dart';
+import 'package:ofg_web/routes/app/app_endpoints.dart';
+import 'package:ofg_web/services/password_reset_services.dart';
+import 'package:ofg_web/utils/text_formatting.dart';
+import 'package:ofg_web/widgets/snackbar.dart';
 import 'package:ofg_web/widgets/top_label_text_field.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
@@ -113,7 +117,22 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       padding: const EdgeInsets.all(12),
                     ),
                     onPressed: () async {
-                      // TODO: Implement forgot password logic
+                      // password reset login
+                      var res = _textFieldValidation();
+                      // check res and show the appropriate dialog
+                      if (res != '1') {
+                        // show the message
+                        OFGSnackBar().snackBarWithContent(
+                            content: res, context: context);
+
+                        // set the loading to false
+                        setState(() {
+                          _isLoading = false;
+                        });
+                      } else {
+                        // login and move to the content page
+                        _sendResetLinkAfterValidation();
+                      }
                     },
                     child: _isLoading
                         ? const CircularProgressIndicator(
@@ -159,5 +178,29 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         ),
       ),
     );
+  }
+
+  String _textFieldValidation() {
+// check if phone number is that of Indian origin, password is atleast 8 chars, and every other field is correct
+    if (_emailController.text.isEmpty) {
+      return 'Please complete all the above fields';
+    } else if (!OFGTextFormatting()
+        .isValidEmail(_emailController.text.trim().toString())) {
+      return 'Please enter a valid email';
+    } else {
+      return '1';
+    }
+  }
+
+  _sendResetLinkAfterValidation() async {
+    // vendor user registration
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    // auth service for login
+    await PassWordResetService()
+        .sendResetEmail(_emailController.text.trim(), context);
   }
 }
