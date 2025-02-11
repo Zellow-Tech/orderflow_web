@@ -12,8 +12,7 @@ import 'package:ofg_web/services/profile_services.dart';
 class EmailVerificationPage extends StatefulWidget {
   final VendorModel vendor;
 
-  const EmailVerificationPage({Key? key, required this.vendor})
-      : super(key: key);
+  const EmailVerificationPage({super.key, required this.vendor});
 
   @override
   State<EmailVerificationPage> createState() => _EmailVerificationPageState();
