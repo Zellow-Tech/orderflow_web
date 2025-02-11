@@ -25,10 +25,16 @@ class PassWordResetService {
       // Displays a confirmation message using the formatting utility.
       _formatting.errorTextHandling(OFGTexts.passwordResetEmailSent);
 
+      // let the user know if context is mounted
+      if (context.mounted) {
+        OFGSnackBar().snackBarWithContent(
+          content: 'Password reset email has been sent!',
+          context: context,
+        );
+      }
+
       // Waits for 3 seconds before navigating to the login screen.
       Timer(const Duration(seconds: 3), () {
-        OFGSnackBar().snackBarWithContent(
-            content: 'Password reset email has been sent!', context: context);
         Get.offAllNamed(OFGEndpoints.login);
       });
     } catch (e) {
