@@ -194,8 +194,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   }
 
   _sendResetLinkAfterValidation() async {
-    // vendor user registration
-
     setState(() {
       _isLoading = true;
     });

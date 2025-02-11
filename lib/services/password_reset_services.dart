@@ -26,7 +26,7 @@ class PassWordResetService {
       _formatting.errorTextHandling(OFGTexts.passwordResetEmailSent);
 
       // Waits for 3 seconds before navigating to the login screen.
-      Timer(const Duration(seconds: 5), () {
+      Timer(const Duration(seconds: 3), () {
         OFGSnackBar().snackBarWithContent(
             content: 'Password reset email has been sent!', context: context);
         Get.offAllNamed(OFGEndpoints.login);
