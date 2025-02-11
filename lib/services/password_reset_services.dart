@@ -1,8 +1,12 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:ofg_web/constants/texts.dart';
+import 'package:ofg_web/routes/app/app_endpoints.dart';
 import 'package:ofg_web/utils/text_formatting.dart';
+import 'package:ofg_web/widgets/snackbar.dart';
 
 /// Service for handling password reset functionality.
 class PassWordResetService {
@@ -22,8 +26,10 @@ class PassWordResetService {
       _formatting.errorTextHandling(OFGTexts.passwordResetEmailSent);
 
       // Waits for 3 seconds before navigating to the login screen.
-      Timer(const Duration(seconds: 3), () {
-        // TODO: Implement navigation to login page after reset email is sent.
+      Timer(const Duration(seconds: 5), () {
+        OFGSnackBar().snackBarWithContent(
+            content: 'Password reset email has been sent!', context: context);
+        Get.offAllNamed(OFGEndpoints.login);
       });
     } catch (e) {
       // Handles any errors encountered while sending the reset email.
