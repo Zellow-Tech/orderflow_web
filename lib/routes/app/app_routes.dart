@@ -13,6 +13,7 @@ class OFGPages {
     GetPage(name: OFGEndpoints.login, page: () => const LoginPage()),
     GetPage(name: OFGEndpoints.register, page: () => const RegistrationPage()),
     GetPage(name: OFGEndpoints.forgotPassword, page: () => const ForgotPasswordPage()),
+    GetPage(name: OFGEndpoints.dashboard, page: () => DashboardPage()),
 
     // Pass VendorModel via Get.arguments
     GetPage(
@@ -28,7 +29,7 @@ class OFGPages {
       },
     ),
 
-    GetPage(name: OFGEndpoints.dashboard, page: () => DashboardPage()),
+    
 
     // for and unknown route
     GetPage(name: OFGEndpoints.unknown, page: () => Scaffold(body: Center(child: Text('Page Not Found'))),

@@ -1,12 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ofg_web/firebase_options.dart';
 import 'package:ofg_web/routes/app/app_endpoints.dart';
 import 'package:ofg_web/routes/app/app_routes.dart';
-import 'package:ofg_web/splash_screen.dart';
-import 'package:ofg_web/views/auth/login_screen.dart';
 import 'package:ofg_web/views/main/dashboard.dart';
 
 // import 'firebase_options.dart';
@@ -20,12 +17,12 @@ void main() async {
   runApp(
     GetMaterialApp(
       title: 'OrderFlow General',
-      home: SplashScreen(),
+      home: DashboardPage(),
       debugShowCheckedModeBanner: false,
 
       // routes (just like above, but with more capabilities)
       getPages: OFGPages.pages,
-      initialRoute: OFGEndpoints.login,
+      initialRoute: OFGEndpoints.dashboard,
 
       // unknown error
       unknownRoute: GetPage(
