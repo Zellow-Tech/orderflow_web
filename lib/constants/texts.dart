@@ -18,6 +18,7 @@ class OFGTexts {
   // FORGOT PASSWORD
   static const String sendResetLink = 'Send Reset Link';
   static const String rememberPassword ='Remember your password?';
+  static const String passwordResetEmailSent = 'Email to reset your password has been sent.';
 
   // REGISTRATION SCREEN
   static const String registerTitle = "Register";

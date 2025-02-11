@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:ofg_web/firebase_options.dart';
 import 'package:ofg_web/routes/app/app_endpoints.dart';
 import 'package:ofg_web/routes/app/app_routes.dart';
-import 'package:ofg_web/views/auth/email_verification_page.dart';
 import 'package:ofg_web/views/auth/login_screen.dart';
 
 // import 'firebase_options.dart';
@@ -18,12 +17,12 @@ void main() async {
   runApp(
     GetMaterialApp(
       title: 'OrderFlow General',
-      home: EmailVerificationScreen(),
+      home: LoginPage(),
       debugShowCheckedModeBanner: false,
 
       // routes (just like above, but with more capabilities)
       getPages: OFGPages.pages,
-      initialRoute: OFGEndpoints.emailVerifcation,
+      initialRoute: OFGEndpoints.login,
 
       // unknown error
       unknownRoute: GetPage(
