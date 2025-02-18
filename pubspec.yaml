@@ -68,6 +68,7 @@ dependencies:
   qr_flutter: ^4.1.0
   google_fonts: ^4.0.0
   syncfusion_flutter_charts: ^23.2.7
+  collapsible_sidebar: ^2.0.7
 
 # service dependencies
   currency_picker: ^2.0.21
