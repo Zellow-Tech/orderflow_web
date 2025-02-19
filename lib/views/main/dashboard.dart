@@ -1,6 +1,6 @@
-import 'package:collapsible_sidebar/collapsible_sidebar.dart';
 import 'package:flutter/material.dart';
 import 'package:ofg_web/constants/color_palette.dart';
+import 'package:ofg_web/widgets/custom_sidebar.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -17,38 +17,81 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     bool isDesktop = MediaQuery.of(context).size.width > 900;
 
-    final sidebar = CollapsibleSidebar(
-      avatarImg: AssetImage('assets/avatar.jpg'), // Your avatar image
-      title: 'OrderFlow', // Title of the sidebar
-      body: ListView(
-        children: [
-          ListTile(title: Text('Item 1')),
-          ListTile(title: Text('Item 2')),
-          ListTile(title: Text('Item 3')),
-          ListTile(title: Text('Item 4')),
-          // Add more items as needed
-        ],
-      ),
-      isCollapsed: isSidebarCollapsed, // Set to true for collapsed by default
-      items: [],
-    );
-
     return Scaffold(
       backgroundColor: _palette.containerGrey,
-      drawer: sidebar,
-      body: Expanded(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            children: [
-              _buildTopNavBar(),
-              const SizedBox(height: 24),
-              _buildDashboardMetrics(),
-              const SizedBox(height: 24),
-              Expanded(child: _buildContentSection()),
-            ],
+      body: Row(
+        children: [
+          if (isDesktop || !isSidebarCollapsed) OFGSideBar(),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                children: [
+                  _buildTopNavBar(),
+                  const SizedBox(height: 24),
+                  _buildDashboardMetrics(),
+                  const SizedBox(height: 24),
+                  Expanded(child: _buildContentSection()),
+                ],
+              ),
+            ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSidebar() {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 100),
+      curve: Curves.easeInOut,
+      width: isSidebarCollapsed ? 70 : 230,
+      constraints: const BoxConstraints(
+        minWidth: 70,
+        maxWidth: 230,
+      ),
+      decoration: BoxDecoration(
+        color: _palette.primaryBlue,
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(12),
+          bottomRight: Radius.circular(12),
         ),
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Align(
+              alignment:
+                  isSidebarCollapsed ? Alignment.center : Alignment.centerLeft,
+              child: IconButton(
+                icon: Icon(
+                  isSidebarCollapsed ? Icons.menu : Icons.close,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  setState(() => isSidebarCollapsed = !isSidebarCollapsed);
+                },
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Expanded(
+            // ✅ Ensures the sidebar content doesn’t overflow
+            child: ListView(
+              shrinkWrap: true, // ✅ Helps prevent RenderFlex errors
+              padding: EdgeInsets.zero,
+              children: [
+                _sidebarItem(icon: Icons.dashboard, label: "Dashboard"),
+                _sidebarItem(icon: Icons.receipt_long, label: "Bills/Invoices"),
+                _sidebarItem(
+                    icon: Icons.add_chart_rounded, label: "Store Stats"),
+                _sidebarItem(icon: Icons.settings, label: "Settings"),
+                _sidebarItem(icon: Icons.logout, label: "Logout"),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -223,6 +266,25 @@ class _DashboardPageState extends State<DashboardPage> {
           _quickActionButton("Create Invoice", Icons.add),
           _quickActionButton("Manage Clients", Icons.people),
         ],
+      ),
+    );
+  }
+
+  Widget _sidebarItem({required IconData icon, required String label}) {
+    return InkWell(
+      onTap: () {},
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+        child: Row(
+          children: [
+            Icon(icon, color: Colors.white),
+            if (!isSidebarCollapsed) ...[
+              const SizedBox(width: 10),
+              Text(label,
+                  style: const TextStyle(color: Colors.white, fontSize: 16)),
+            ],
+          ],
+        ),
       ),
     );
   }
