@@ -17,6 +17,7 @@ class _OFGSideBarState extends State<OFGSideBar> {
     return Stack(
       children: [
         CollapsibleSidebar(
+          
           isCollapsed: isCollapsed,
           items: [
             CollapsibleItem(

@@ -22,12 +22,12 @@ class _DashboardPageState extends State<DashboardPage> {
       body: Row(
         children: [
           if (isDesktop || !isSidebarCollapsed) _buildSidebar(),
-          Expanded(
-            child: OFGSideBar(
-                body: Center(
-              child: Text(' doatantaoinfoaisdnf  '),
-            )),
-          ),
+          // Expanded(
+          //   child: OFGSideBar(
+          //       body: Center(
+          //     child: Text(' doatantaoinfoaisdnf  '),
+          //   )),
+          // ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(24),
